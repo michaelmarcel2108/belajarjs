@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Tersimpan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="bg-gray-800 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <span class="font-bold text-lg">WebSiteName</span>
+      <ul class="flex space-x-6">
+        <li><a href="register.html" class="hover:underline">Form Registrasi</a></li>
+        <li><a href="formulir.html" class="hover:underline">Data Tersimpan</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hasil Data -->
+  <div class="flex-grow flex items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">Data Registrasi</h2>
+      <div id="output" class="space-y-3 text-gray-700"></div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const output = document.getElementById("output");
+    const data = JSON.parse(localStorage.getItem("userData"));
+
+    if (data) {
+      output.innerHTML = `
+        <p><strong>Nama:</strong> ${data.nama}</p>
+        <p><strong>NIK:</strong> ${data.nik}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Status Pekerjaan:</strong> ${data.status}</p>
+        <p><strong>Remember Me:</strong> ${data.remember ? "Ya" : "Tidak"}</p>
+      `;
+    } else {
+      output.innerHTML = `<p class="text-red-600 text-center">Belum ada data tersimpan.</p>`;
+    }
+  </script>
+</body>
+</html>

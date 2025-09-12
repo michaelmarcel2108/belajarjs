@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Registrasi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-200 to-blue-400 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="bg-gray-100 shadow-md p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <span class="font-bold text-lg">WebSiteName</span>
+      <ul class="flex space-x-6">
+        <li><a href="index.html" class="hover:underline">Form Registrasi</a></li>
+        <li><a href="formulir.html" class="hover:underline">Data Tersimpan</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Form Registrasi -->
+  <div class="flex-grow flex items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">Form Registrasi</h2>
+      <form id="registerForm" class="space-y-4">
+
+        <!-- Nama -->
+        <div>
+          <label class="block text-gray-600">Nama:</label>
+          <input type="text" id="nama" placeholder="Masukkan Nama"
+                 class="w-full p-2 border rounded" required>
+        </div>
+
+        <!-- NIK -->
+        <div>
+          <label class="block text-gray-600">NIK:</label>
+          <input type="text" id="nik" placeholder="Masukkan NIK"
+                 class="w-full p-2 border rounded" required>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-gray-600">Email:</label>
+          <input type="email" id="email" placeholder="Email"
+                 class="w-full p-2 border rounded" required>
+        </div>
+
+        <!-- Status Pekerjaan -->
+        <div>
+          <label class="block text-gray-600">Status Pekerjaan:</label>
+          <select id="status" class="w-full p-2 border rounded" required>
+            <option value="">Pilih</option>
+            <option value="Pelajar">Pelajar</option>
+            <option value="Mahasiswa">Mahasiswa</option>
+            <option value="Karyawan">Karyawan</option>
+            <option value="Wiraswasta">Wiraswasta</option>
+          </select>
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="block text-gray-600">Password:</label>
+          <input type="password" id="password" placeholder="Enter password"
+                 class="w-full p-2 border rounded" required>
+        </div>
+
+        <!-- Re Password -->
+        <div>
+          <label class="block text-gray-600">Re Password:</label>
+          <input type="password" id="repassword" placeholder="Enter password again"
+                 class="w-full p-2 border rounded" required>
+        </div>
+
+        <!-- Remember me -->
+        <div class="flex items-center">
+          <input type="checkbox" id="remember" class="mr-2">
+          <label for="remember" class="text-gray-600">Remember me</label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg">
+          Submit
+        </button>
+      </form>
+
+      <p id="message" class="mt-4 text-center font-semibold"></p>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById("nama").value.trim();
+      const nik = document.getElementById("nik").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const status = document.getElementById("status").value;
+      const password = document.getElementById("password").value;
+      const repassword = document.getElementById("repassword").value;
+      const remember = document.getElementById("remember").checked;
+
+      const message = document.getElementById("message");
+
+      if (password !== repassword) {
+        message.textContent = "Password tidak sama!";
+        message.className = "mt-4 text-center font-semibold text-red-600";
+        return;
+      }
+
+      if (nik.length < 8) {
+        message.textContent = "NIK minimal 8 digit!";
+        message.className = "mt-4 text-center font-semibold text-red-600";
+        return;
+      }
+
+      // Simpan ke localStorage
+      const data = { nama, nik, email, status, remember };
+      localStorage.setItem("userData", JSON.stringify(data));
+
+      // Redirect ke halaman formulir.html
+      window.location.href = "formulir.html";
+    });
+  </script>
+</body>
+</html>
